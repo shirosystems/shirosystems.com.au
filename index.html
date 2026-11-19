@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shiro Systems | Business Central and Azure architecture, Melbourne</title>
+<meta name="description" content="Business Central architecture, built hands-on. Alex Shirokikh designs Business Central solutions and builds them: architecture, AL code, pipelines and the Azure services underneath.">
+<link rel="canonical" href="https://shirosystems.com.au/">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16181D" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Shiro Systems">
+<meta property="og:title" content="Shiro Systems: Business Central architecture, built hands-on">
+<meta property="og:description" content="Business Central architecture, built hands-on. Alex Shirokikh designs Business Central solutions and builds them: architecture, AL code, pipelines and the Azure services underneath.">
+<meta property="og:url" content="https://shirosystems.com.au/">
+<meta property="og:image" content="https://shirosystems.com.au/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Shiro Systems seal and name">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/ibm-plex-sans-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Shiro Systems Pty Ltd","alternateName":"Shiro Systems","url":"https://shirosystems.com.au/","logo":"https://shirosystems.com.au/logo.png","email":"alex@shirosystems.com.au","sameAs":["https://www.linkedin.com/in/alexshirokikh"]}</script>
+<style>
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-sans-cyrillic-400-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-400-normal.woff2) format('woff2')}
+:root{color-scheme:light dark;--bg:#FFFFFF;--surface:#F5F5F2;--ink:#111111;--muted:#5E616A;--rule:#E6E6E2;--accent:#B7282E;--accent-hover:#93202A;--btn-hover:#2B2B2B;}
+@media (prefers-color-scheme: dark){:root{--bg:#16181D;--surface:#1E2128;--ink:#F5F5F2;--muted:#A0A3AB;--rule:#2C2F37;--accent:#E5615B;--accent-hover:#F08A85;--btn-hover:#FFFFFF;}}
+body{background:var(--bg)}
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--accent-hover)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+.btn:hover{background:var(--btn-hover) !important;color:var(--bg) !important}
+.ul:hover{text-decoration-thickness:2px !important;color:var(--ink) !important}
+.plain:hover{color:var(--ink) !important}
+@media (prefers-reduced-motion: no-preference){a{transition:color 150ms, background-color 150ms, text-decoration-thickness 150ms}}
+</style>
+</head>
+<body>
+<div style="--shu: #B7282E; background: var(--bg); color: var(--ink); font-family: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 17px; line-height: 1.6; min-height: 100vh; -webkit-font-smoothing: antialiased">
+
+<header style="position: sticky; top: 0; z-index: 10; background: var(--bg); border-bottom: 1px solid var(--rule)">
+<div style="max-width: 1040px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<a href="#top" aria-label="Shiro Systems, home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink)">
+<svg width="28" height="28" viewBox="0 0 100 100" aria-hidden="true" style="display: block; flex: none"><path fill="#B7282E" fill-rule="evenodd" d="M6 0H94C97.314 0 100 2.686 100 6V94C100 97.314 97.314 100 94 100H6C2.686 100 0 97.314 0 94V6C0 2.686 2.686 0 6 0ZM22 25.5V63.25C22 72.501 29.499 80 38.75 80H61.25C70.501 80 78 72.501 78 63.25V25.5C78 22.462 75.538 20 72.5 20C69.462 20 67 22.462 67 25.5V63.25C67 66.426 64.426 69 61.25 69C58.074 69 55.5 66.426 55.5 63.25V25.5C55.5 22.462 53.038 20 50 20C46.962 20 44.5 22.462 44.5 25.5V63.25C44.5 66.426 41.926 69 38.75 69C35.574 69 33 66.426 33 63.25V25.5C33 22.462 30.538 20 27.5 20C24.462 20 22 22.462 22 25.5Z"></path></svg>
+<span style="font-weight: 600; font-size: 20px; letter-spacing: -0.005em; line-height: 1">Shiro Systems</span>
+</a>
+<a href="#contact" class="plain" style="color: var(--ink); text-decoration: none; font-size: 15px; font-weight: 600; padding: 12px 0">Contact</a>
+</div>
+</header>
+
+<main id="top">
+
+<section aria-labelledby="hero-title" style="padding: clamp(72px, 11vw, 144px) 0 clamp(64px, 9vw, 112px)">
+<div style="max-width: 1040px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px)">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.4; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px">Shiro Systems / Melbourne, Australia</div>
+<h1 id="hero-title" style="margin: 0; font-size: clamp(34px, 5vw, 48px); line-height: 1.1; letter-spacing: -0.01em; font-weight: 600; max-width: 15em">Business Central architecture, built hands-on.</h1>
+<p style="margin: 24px 0 0; font-size: 19px; line-height: 1.55; color: var(--muted); max-width: 40em">I design Business Central solutions and build them myself: the architecture, the AL code, the pipelines and the Azure services underneath. Over 15 years with Dynamics NAV and Business Central, across partner, ISV and product roles.</p>
+<div style="margin-top: 40px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px">
+<a href="mailto:alex@shirosystems.com.au" class="btn" style="display: inline-block; background: var(--ink); color: var(--bg); text-decoration: none; font-weight: 600; font-size: 16px; line-height: 1.25; padding: 12px 20px; border-radius: 2px">Email me</a>
+<a href="https://www.linkedin.com/in/alexshirokikh" class="ul" style="color: var(--ink); font-size: 16px; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px">LinkedIn</a>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="s1" style="border-top: 1px solid var(--rule); padding: clamp(56px, 8vw, 96px) 0">
+<div style="max-width: 1040px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px); display: flex; flex-wrap: wrap; gap: 24px 48px">
+<div style="flex: 0 1 300px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.4; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">01 / When to call me</div>
+<h2 id="s1" style="margin: 12px 0 0; font-size: clamp(24px, 3vw, 28px); line-height: 1.2; font-weight: 600">When to call me</h2>
+</div>
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 600">If you're a consultant or partner</h3>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+<li style="display: flex; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: 19px; line-height: 1.45"><span aria-hidden="true" style="flex: none; width: 6px; height: 6px; background: var(--ink); transform: translateY(-3px)"></span><span>You've won the work, and need a technical partner who won't take the client.</span></li>
+<li style="display: flex; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: 19px; line-height: 1.45"><span aria-hidden="true" style="flex: none; width: 6px; height: 6px; background: var(--ink); transform: translateY(-3px)"></span><span>Your team loses hours to setup, data loads and checks that tools could handle.</span></li>
+<li style="display: flex; align-items: baseline; gap: 16px; padding: 14px 0; font-size: 19px; line-height: 1.45"><span aria-hidden="true" style="flex: none; width: 6px; height: 6px; background: var(--ink); transform: translateY(-3px)"></span><span>Releases are slow, risky, or depend on one person.</span></li>
+</ul>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 600">If you run Business Central</h3>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+<li style="display: flex; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: 19px; line-height: 1.45"><span aria-hidden="true" style="flex: none; width: 6px; height: 6px; background: var(--ink); transform: translateY(-3px)"></span><span>You want an independent technical voice on your side of the project.</span></li>
+<li style="display: flex; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: 19px; line-height: 1.45"><span aria-hidden="true" style="flex: none; width: 6px; height: 6px; background: var(--ink); transform: translateY(-3px)"></span><span>It's slow and nobody can say why.</span></li>
+<li style="display: flex; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: 19px; line-height: 1.45"><span aria-hidden="true" style="flex: none; width: 6px; height: 6px; background: var(--ink); transform: translateY(-3px)"></span><span>An upgrade is overdue or keeps slipping.</span></li>
+<li style="display: flex; align-items: baseline; gap: 16px; padding: 14px 0; font-size: 19px; line-height: 1.45"><span aria-hidden="true" style="flex: none; width: 6px; height: 6px; background: var(--ink); transform: translateY(-3px)"></span><span>It has grown in ways nobody fully understands.</span></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="s2" style="border-top: 1px solid var(--rule); padding: clamp(56px, 8vw, 96px) 0">
+<div style="max-width: 1040px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px); display: flex; flex-wrap: wrap; gap: 24px 48px">
+<div style="flex: 0 1 300px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.4; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">02 / What I do</div>
+<h2 id="s2" style="margin: 12px 0 0; font-size: clamp(24px, 3vw, 28px); line-height: 1.2; font-weight: 600">What I do</h2>
+</div>
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column">
+<div style="padding: 0 0 24px; border-bottom: 1px solid var(--rule)">
+<h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 600">Technical partner for consultants</h3>
+<p style="margin: 6px 0 0; color: var(--muted); max-width: 68ch">You lead the client and the design. I do the technical work behind you: extensions, integrations, data migration and fixes, explained in terms you can take back to the client.</p>
+</div>
+<div style="padding: 24px 0; border-bottom: 1px solid var(--rule)">
+<h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 600">Tools for your day-to-day work</h3>
+<p style="margin: 6px 0 0; color: var(--muted); max-width: 68ch">I set up the technical tools that make your team faster: data templates, automated checks, and demo and test setups.</p>
+</div>
+<div style="padding: 24px 0; border-bottom: 1px solid var(--rule)">
+<h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 600">Solution architecture and AL development</h3>
+<p style="margin: 6px 0 0; color: var(--muted); max-width: 68ch">Extensions designed to survive upgrades, built on standard Business Central wherever it fits.</p>
+</div>
+<div style="padding: 24px 0; border-bottom: 1px solid var(--rule)">
+<h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 600">Upgrades, migrations and performance</h3>
+<p style="margin: 6px 0 0; color: var(--muted); max-width: 68ch">I find the cause, not the symptom. On one NAV 2009 to Business Central upgrade, data upgrade time went from over 90 hours to 26.</p>
+</div>
+<div style="padding: 24px 0; border-bottom: 1px solid var(--rule)">
+<h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 600">Integration</h3>
+<p style="margin: 6px 0 0; color: var(--muted); max-width: 68ch">Business Central connected to Azure services, APIs and other systems, designed to be monitored and supported.</p>
+</div>
+<div style="padding: 24px 0; border-bottom: 1px solid var(--rule)">
+<h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 600">DevOps for Business Central</h3>
+<p style="margin: 6px 0 0; color: var(--muted); max-width: 68ch">Pipelines, environments and release automation. On one product, release effort went from about two hours to ten minutes.</p>
+</div>
+<div style="padding: 24px 0; border-bottom: 1px solid var(--rule)">
+<h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 600">Disposable environments</h3>
+<p style="margin: 6px 0 0; color: var(--muted); max-width: 68ch">Containers for development, testing, demos and training, so a mistake costs a redeploy and not a broken system.</p>
+</div>
+<div style="padding: 24px 0 0">
+<h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 600">Technical advice and handover</h3>
+<p style="margin: 6px 0 0; color: var(--muted); max-width: 68ch">Design reviews, second opinions, documentation and knowledge transfer, so your team owns what was built.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="s3" style="border-top: 1px solid var(--rule); padding: clamp(56px, 8vw, 96px) 0">
+<div style="max-width: 1040px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px); display: flex; flex-wrap: wrap; gap: 24px 48px">
+<div style="flex: 0 1 300px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.4; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">03 / How I work</div>
+<h2 id="s3" style="margin: 12px 0 0; font-size: clamp(24px, 3vw, 28px); line-height: 1.2; font-weight: 600">How I work</h2>
+</div>
+<ol style="flex: 999 1 520px; min-width: 0; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 36px 40px">
+<li style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--rule); padding-top: 16px">
+<span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.06em; color: var(--muted)">01</span>
+<h3 style="margin: 4px 0 0; font-size: 18px; line-height: 1.35; font-weight: 600">Play it back before building.</h3>
+<p style="margin: 0; color: var(--muted)">At the end of each workshop you hear what I understood, and you correct it before anything is built.</p>
+</li>
+<li style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--rule); padding-top: 16px">
+<span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.06em; color: var(--muted)">02</span>
+<h3 style="margin: 4px 0 0; font-size: 18px; line-height: 1.35; font-weight: 600">Configuration before code.</h3>
+<p style="margin: 0; color: var(--muted)">Standard Business Central first. Code only where setup cannot do the job.</p>
+</li>
+<li style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--rule); padding-top: 16px">
+<span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.06em; color: var(--muted)">03</span>
+<h3 style="margin: 4px 0 0; font-size: 18px; line-height: 1.35; font-weight: 600">Requirements become tests.</h3>
+<p style="margin: 0; color: var(--muted)">Each agreed rule becomes a check that runs after every build.</p>
+</li>
+<li style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--rule); padding-top: 16px">
+<span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.06em; color: var(--muted)">04</span>
+<h3 style="margin: 4px 0 0; font-size: 18px; line-height: 1.35; font-weight: 600">It works, and nothing else breaks.</h3>
+<p style="margin: 0; color: var(--muted)">I use AI tools in my work, and I'm happy to stick to the tools your organisation has approved. Before anything reaches you, I make sure it works and does not break what you already have.</p>
+</li>
+<li style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--rule); padding-top: 16px">
+<span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.06em; color: var(--muted)">05</span>
+<h3 style="margin: 4px 0 0; font-size: 18px; line-height: 1.35; font-weight: 600">Your data stays with you.</h3>
+<p style="margin: 0; color: var(--muted)">Demo data shaped like your business, or tools that run inside your own tenant. Nothing of yours goes anywhere without your consent.</p>
+</li>
+<li style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--rule); padding-top: 16px">
+<span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.06em; color: var(--muted)">06</span>
+<h3 style="margin: 4px 0 0; font-size: 18px; line-height: 1.35; font-weight: 600">Built on Microsoft, not against it.</h3>
+<p style="margin: 0; color: var(--muted)">Standard APIs and the platform as Microsoft ships it, so each release wave is an upgrade and not a rescue.</p>
+</li>
+</ol>
+</div>
+</section>
+
+<section aria-labelledby="s4" style="border-top: 1px solid var(--rule); padding: clamp(56px, 8vw, 96px) 0">
+<div style="max-width: 1040px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px); display: flex; flex-wrap: wrap; gap: 24px 48px">
+<div style="flex: 0 1 300px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.4; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">04 / Credentials</div>
+<h2 id="s4" style="margin: 12px 0 0; font-size: clamp(24px, 3vw, 28px); line-height: 1.2; font-weight: 600">Credentials</h2>
+</div>
+<div style="flex: 999 1 520px; min-width: 0">
+<div style="margin-top: 0; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.4; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">Microsoft certified</div>
+<ul style="margin: 12px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); column-gap: 40px">
+<li style="padding: 12px 0; border-bottom: 1px solid var(--rule)">Azure DevOps Engineer Expert</li>
+<li style="padding: 12px 0; border-bottom: 1px solid var(--rule)">Power Platform Solution Architect Expert</li>
+<li style="padding: 12px 0; border-bottom: 1px solid var(--rule)">Dynamics 365 Business Central Developer Associate</li>
+<li style="padding: 12px 0; border-bottom: 1px solid var(--rule)">Azure Administrator Associate</li>
+<li style="padding: 12px 0; border-bottom: 1px solid var(--rule)">Azure Developer Associate</li>
+<li style="padding: 12px 0; border-bottom: 1px solid var(--rule)">Power Platform Developer Associate</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="s5" style="border-top: 1px solid var(--rule); padding: clamp(56px, 8vw, 96px) 0">
+<div style="max-width: 1040px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px); display: flex; flex-wrap: wrap; gap: 24px 48px">
+<div style="flex: 0 1 300px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.4; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">05 / Working with me</div>
+<h2 id="s5" style="margin: 12px 0 0; font-size: clamp(24px, 3vw, 28px); line-height: 1.2; font-weight: 600">Working with me</h2>
+</div>
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column">
+<p style="margin: 0; padding: 0 0 20px; border-bottom: 1px solid var(--rule); max-width: 68ch">Contract or fixed-scope work through Shiro Systems Pty Ltd, either directly or through your preferred agency.</p>
+<p style="margin: 0; padding: 20px 0; border-bottom: 1px solid var(--rule); max-width: 68ch">For consultants and firms, I work under your lead and alongside your team. Your client stays your client: I don't approach them for work, and everything I learn stays confidential.</p>
+<p style="margin: 0; padding: 20px 0; border-bottom: 1px solid var(--rule); max-width: 68ch">Based in Melbourne. I work remotely with teams across Australia and overseas, and on site when it matters.</p>
+<p style="margin: 0; padding: 20px 0 0; max-width: 68ch">Professional indemnity and public liability insured.</p>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="s6" style="border-top: 1px solid var(--rule); padding: clamp(56px, 8vw, 96px) 0">
+<div style="max-width: 1040px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px); display: flex; flex-wrap: wrap; gap: 24px 48px">
+<div style="flex: 0 1 300px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.4; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">06 / Founder</div>
+<h2 id="s6" style="margin: 12px 0 0; font-size: clamp(24px, 3vw, 28px); line-height: 1.2; font-weight: 600">Founder</h2>
+</div>
+<div style="flex: 999 1 520px; min-width: 0">
+<h3 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 600">Alex Shirokikh, founder and hands-on architect</h3>
+<p style="margin: 12px 0 0; max-width: 68ch">I'm an architect who stays hands-on. I know how finance and operations processes actually run, and I design the solution and build it myself, from the architecture down to the code. I enable teams as much as I deliver: I unblock the hard problems, set up the foundations, and share what I know along the way.</p>
+<div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--rule); display: flex; align-items: flex-start; gap: 20px">
+<svg width="56" height="56" viewBox="0 0 100 100" role="img" aria-label="The Shiro Systems seal: the letter Ш carved out of a red square" style="display: block; flex: none"><path fill="#B7282E" fill-rule="evenodd" d="M6 0H94C97.314 0 100 2.686 100 6V94C100 97.314 97.314 100 94 100H6C2.686 100 0 97.314 0 94V6C0 2.686 2.686 0 6 0ZM22 25.5V63.25C22 72.501 29.499 80 38.75 80H61.25C70.501 80 78 72.501 78 63.25V25.5C78 22.462 75.538 20 72.5 20C69.462 20 67 22.462 67 25.5V63.25C67 66.426 64.426 69 61.25 69C58.074 69 55.5 66.426 55.5 63.25V25.5C55.5 22.462 53.038 20 50 20C46.962 20 44.5 22.462 44.5 25.5V63.25C44.5 66.426 41.926 69 38.75 69C35.574 69 33 66.426 33 63.25V25.5C33 22.462 30.538 20 27.5 20C24.462 20 22 22.462 22 25.5Z"></path></svg>
+<p style="margin: 0; color: var(--muted); max-width: 60ch">The mark is a hanko, the seal used in Japan to sign off work. Mine carries Ш, the first letter of my surname in Cyrillic. Shiro (城) means castle in Japanese.</p>
+</div>
+<p style="margin: 24px 0 0"><a href="https://www.linkedin.com/in/alexshirokikh" class="ul" style="color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px">LinkedIn</a></p>
+</div>
+</div>
+</section>
+
+<section id="contact" aria-labelledby="s7" style="border-top: 1px solid var(--rule); padding: clamp(56px, 8vw, 96px) 0 clamp(72px, 10vw, 128px)">
+<div style="max-width: 1040px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px); display: flex; flex-wrap: wrap; gap: 24px 48px">
+<div style="flex: 0 1 300px; min-width: 0">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.4; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">07 / Contact</div>
+<h2 id="s7" style="margin: 12px 0 0; font-size: clamp(24px, 3vw, 28px); line-height: 1.2; font-weight: 600">Contact</h2>
+</div>
+<div style="flex: 999 1 520px; min-width: 0">
+<p style="margin: 0; max-width: 68ch">The fastest way to reach me is email. Tell me what you need, and I'll reply with a scope and estimate.</p>
+<p style="margin: 16px 0 0; font-size: clamp(22px, 3.4vw, 34px); line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; overflow-wrap: anywhere"><a href="mailto:alex@shirosystems.com.au" class="ul" style="color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 6px">alex@shirosystems.com.au</a></p>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer style="background: var(--surface); border-top: 1px solid var(--rule)">
+<div style="max-width: 1040px; margin: 0 auto; padding: 32px clamp(16px, 4vw, 32px); display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; font-size: 14px; line-height: 1.5; color: var(--muted)">
+<svg width="16" height="16" viewBox="0 0 100 100" aria-hidden="true" style="display: block; flex: none"><path fill="#B7282E" fill-rule="evenodd" d="M6 0H94C97.314 0 100 2.686 100 6V94C100 97.314 97.314 100 94 100H6C2.686 100 0 97.314 0 94V6C0 2.686 2.686 0 6 0ZM22 25.5V63.25C22 72.501 29.499 80 38.75 80H61.25C70.501 80 78 72.501 78 63.25V25.5C78 22.462 75.538 20 72.5 20C69.462 20 67 22.462 67 25.5V63.25C67 66.426 64.426 69 61.25 69C58.074 69 55.5 66.426 55.5 63.25V25.5C55.5 22.462 53.038 20 50 20C46.962 20 44.5 22.462 44.5 25.5V63.25C44.5 66.426 41.926 69 38.75 69C35.574 69 33 66.426 33 63.25V25.5C33 22.462 30.538 20 27.5 20C24.462 20 22 22.462 22 25.5Z"></path></svg>
+<span style="color: var(--ink)">Shiro Systems Pty Ltd</span>
+<span>ACN 703 713 660</span>
+<span>ABN 19 703 713 660</span>
+<span>Suite 246, 793 Burke Road, Camberwell VIC 3124</span>
+<span>© 2026</span>
+</div>
+</footer>
+
+</div>
+</body>
+</html>
