@@ -78,7 +78,7 @@ TITLE = "Shiro Systems | Business Central and Azure architecture, Melbourne"
 DESC = ("Business Central architecture, built hands-on. Alex Shirokikh designs Business Central "
         "solutions and builds them: architecture, AL code, pipelines and the Azure services underneath.")
 URL = "https://shirosystems.com.au/"
-SCHEMA = """{"@context":"https://schema.org","@type":"Organization","name":"Shiro Systems Pty Ltd","alternateName":"Shiro Systems","url":"https://shirosystems.com.au/","logo":"https://shirosystems.com.au/logo.png","email":"alex@shirosystems.com.au","sameAs":["https://www.linkedin.com/in/alexshirokikh"]}"""
+SCHEMA = """{"@context":"https://schema.org","@type":"Organization","name":"Shiro Systems Pty Ltd","alternateName":"Shiro Systems","url":"https://shirosystems.com.au/","logo":"https://shirosystems.com.au/logo.png","email":"alex@shirosystems.com.au","sameAs":["https://www.linkedin.com/in/alexshirokikh"],"brand":{"@type":"Brand","name":"BCDock","url":"https://bcdock.io/"}}"""
 
 html = f"""<!doctype html>
 <html lang="en-AU">
