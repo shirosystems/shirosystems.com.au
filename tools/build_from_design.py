@@ -55,9 +55,12 @@ LINK = ('<a href="https://learn.microsoft.com/api/credentials/share/en-us/alex-s
         'text-decoration-color: var(--accent); text-decoration-thickness: 1px; '
         'text-underline-offset: 3px">{name}</a>')
 for name, cid in CREDS.items():
+    if f"alex-shirokikh/{cid}?" in body:
+        continue  # the design already links it
     li = f'border-bottom: 1px solid var(--rule)">{name}</li>'
     assert body.count(li) == 1, f"certification not found once: {name}"
     body = body.replace(li, f'border-bottom: 1px solid var(--rule)">{LINK.format(id=cid, name=name)}</li>')
+assert all(f"alex-shirokikh/{cid}?" in body for cid in CREDS.values()), "a certification link is missing"
 
 FONT = "/fonts/"
 css = f"""
