@@ -41,6 +41,24 @@ body = re.sub(r"<span>\[PO Box[^]<]*\]</span>",
               "<span>Suite 246, 793 Burke Road, Camberwell VIC 3124</span>", body)
 assert "[" not in re.sub(r"<[^>]+>", "", body), "placeholder left in copy"
 
+# Each certification links to its Microsoft Learn credential page, which verifies it
+CREDS = {
+    "Azure DevOps Engineer Expert": "3C20A9052E043AB2",
+    "Power Platform Solution Architect Expert": "3C4D5C6EC7FE4AC",
+    "Dynamics 365 Business Central Developer Associate": "12F862A67BEF1910",
+    "Azure Administrator Associate": "D4B9386BCE958AB9",
+    "Azure Developer Associate": "C528CF04ECC7DDC8",
+    "Power Platform Developer Associate": "BFB2EA4AED6D3F53",
+}
+LINK = ('<a href="https://learn.microsoft.com/api/credentials/share/en-us/alex-shirokikh/{id}'
+        '?sharingId=7F5744789344AFC9" class="ul" style="color: var(--ink); text-decoration: underline; '
+        'text-decoration-color: var(--accent); text-decoration-thickness: 1px; '
+        'text-underline-offset: 3px">{name}</a>')
+for name, cid in CREDS.items():
+    li = f'border-bottom: 1px solid var(--rule)">{name}</li>'
+    assert body.count(li) == 1, f"certification not found once: {name}"
+    body = body.replace(li, f'border-bottom: 1px solid var(--rule)">{LINK.format(id=cid, name=name)}</li>')
+
 FONT = "/fonts/"
 css = f"""
 @font-face{{font-family:'IBM Plex Sans';font-style:normal;font-weight:400;font-display:swap;src:url({FONT}ibm-plex-sans-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}}
