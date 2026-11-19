@@ -15,13 +15,16 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC = Path(sys.argv[1])
 s = SRC.read_text(encoding="utf-8")
 
-# Theme tokens from the design's renderVals()
+# Theme tokens from the design's renderVals(); bcSun and bcTeal are the BCDock wordmark's
 LIGHT = dict(bg="#FFFFFF", surface="#F5F5F2", ink="#111111", muted="#5E616A", rule="#E6E6E2",
-             accent="#B7282E", accentHover="#93202A", btnHover="#2B2B2B")
+             accent="#B7282E", accentHover="#93202A", btnHover="#2B2B2B",
+             bcSun="#E87B35", bcTeal="#0B6E6B")
 DARK = dict(bg="#16181D", surface="#1E2128", ink="#F5F5F2", muted="#A0A3AB", rule="#2C2F37",
-            accent="#E5615B", accentHover="#F08A85", btnHover="#FFFFFF")
+            accent="#E5615B", accentHover="#F08A85", btnHover="#FFFFFF",
+            bcSun="#FF8C42", bcTeal="#2DD4BF")
 VAR = dict(bg="--bg", surface="--surface", ink="--ink", muted="--muted", rule="--rule",
-           accent="--accent", accentHover="--accent-hover", btnHover="--btn-hover")
+           accent="--accent", accentHover="--accent-hover", btnHover="--btn-hover",
+           bcSun="--bc-sun", bcTeal="--bc-teal")
 
 def tokens(t):
     return "".join(f"{VAR[k]}:{v};" for k, v in t.items())
