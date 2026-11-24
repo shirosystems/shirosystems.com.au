@@ -77,11 +77,11 @@ body{{background:var(--bg)}}
 {helmet_css.strip()}
 """.strip()
 
-TITLE = "Business Central architecture and development, Melbourne | Shiro Systems"
-DESC = ("Business Central architecture and development in Melbourne, built hands-on. Alex Shirokikh "
-        "designs Business Central solutions and builds them: AL code, pipelines and the Azure services underneath.")
+TITLE = "Business Central architect and developer, Melbourne | Shiro Systems"
+DESC = ("Business Central architect and developer in Melbourne, Australia. Alex Shirokikh designs "
+        "Business Central solutions and builds them hands-on: AL code, pipelines and the Azure services underneath.")
 URL = "https://shirosystems.com.au/"
-SCHEMA = """{"@context":"https://schema.org","@type":"Organization","name":"Shiro Systems Pty Ltd","alternateName":"Shiro Systems","url":"https://shirosystems.com.au/","logo":"https://shirosystems.com.au/logo.png","email":"alex@shirosystems.com.au","sameAs":["https://www.linkedin.com/in/alexshirokikh"],"brand":{"@type":"Brand","name":"BCDock","url":"https://bcdock.io/"}}"""
+SCHEMA = """{"@context":"https://schema.org","@type":"Organization","name":"Shiro Systems Pty Ltd","alternateName":"Shiro Systems","url":"https://shirosystems.com.au/","logo":"https://shirosystems.com.au/logo.png","email":"alex@shirosystems.com.au","sameAs":["https://www.linkedin.com/in/alexshirokikh"],"address":{"@type":"PostalAddress","streetAddress":"Suite 246, 793 Burke Road","addressLocality":"Camberwell","addressRegion":"VIC","postalCode":"3124","addressCountry":"AU"},"areaServed":"Australia","founder":{"@type":"Person","name":"Alex Shirokikh","jobTitle":"Business Central architect and developer","sameAs":["https://www.linkedin.com/in/alexshirokikh"]},"brand":{"@type":"Brand","name":"BCDock","url":"https://bcdock.io/"}}"""
 
 html = f"""<!doctype html>
 <html lang="en-AU">
@@ -99,7 +99,7 @@ html = f"""<!doctype html>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Shiro Systems">
-<meta property="og:title" content="Shiro Systems: Business Central architecture and development, built hands-on">
+<meta property="og:title" content="Shiro Systems: Business Central architect and developer, Melbourne">
 <meta property="og:description" content="{DESC}">
 <meta property="og:url" content="{URL}">
 <meta property="og:image" content="{URL}og.png">
