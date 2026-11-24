@@ -77,9 +77,9 @@ body{{background:var(--bg)}}
 {helmet_css.strip()}
 """.strip()
 
-TITLE = "Shiro Systems | Business Central and Azure architecture, Melbourne"
-DESC = ("Business Central architecture, built hands-on. Alex Shirokikh designs Business Central "
-        "solutions and builds them: architecture, AL code, pipelines and the Azure services underneath.")
+TITLE = "Business Central architecture and development, Melbourne | Shiro Systems"
+DESC = ("Business Central architecture and development in Melbourne, built hands-on. Alex Shirokikh "
+        "designs Business Central solutions and builds them: AL code, pipelines and the Azure services underneath.")
 URL = "https://shirosystems.com.au/"
 SCHEMA = """{"@context":"https://schema.org","@type":"Organization","name":"Shiro Systems Pty Ltd","alternateName":"Shiro Systems","url":"https://shirosystems.com.au/","logo":"https://shirosystems.com.au/logo.png","email":"alex@shirosystems.com.au","sameAs":["https://www.linkedin.com/in/alexshirokikh"],"brand":{"@type":"Brand","name":"BCDock","url":"https://bcdock.io/"}}"""
 
@@ -99,7 +99,7 @@ html = f"""<!doctype html>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Shiro Systems">
-<meta property="og:title" content="Shiro Systems: Business Central architecture, built hands-on">
+<meta property="og:title" content="Shiro Systems: Business Central architecture and development, built hands-on">
 <meta property="og:description" content="{DESC}">
 <meta property="og:url" content="{URL}">
 <meta property="og:image" content="{URL}og.png">
