@@ -16,9 +16,3 @@ system setting), uses the self-hosted IBM Plex fonts in `fonts/` (SIL OFL, see `
 and fills in the SEO, Open Graph and Organization schema.
 
 `og.png` (the link preview) is rendered from `tools/og.html` with headless Chrome.
-
-## Content rules
-
-No client, employer or agency names. BCDock only as Shiro Systems' product, with no claim
-bcdock.io doesn't make. "I", not "we". No certification not yet held.
-Business address only, never a home address. No rates or availability. No em or en dashes.
